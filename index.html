@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran PAK SD - Setiap Manusia Berharga di Mata Allah</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        heading: ['Fredoka', 'sans-serif'],
+                        body: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6',
+                            yellow: '#FBBF24',
+                            pink: '#EC4899',
+                            green: '#10B981',
+                            purple: '#8B5CF6',
+                            orange: '#F97316'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #F0F9FF;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Fredoka', cursive;
+        }
+        .perspective-1000 {
+            perspective: 1000px;
+        }
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+            transform: rotateY(180deg);
+        }
+        .flip-card-inner {
+            transition: transform 0.6s;
+        }
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        .bounce-gentle {
+            animation: bounceGentle 2s infinite;
+        }
+        @keyframes bounceGentle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        .pulse-star {
+            animation: pulseStar 1.5s infinite;
+        }
+        @keyframes pulseStar {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #E0F2FE;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #BAE6FD;
+            border-radius: 999px;
+        }
+    </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col selection:bg-yellow-300 selection:text-slate-900">
+
+    <!-- Top Header Banner -->
+    <header class="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white shadow-lg sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center text-2xl shadow-inner border-2 border-yellow-300">
+                    ✝️
+                </div>
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold tracking-wide drop-shadow-sm">Pendidikan Agama Kristen</h1>
+                    <p class="text-xs md:text-sm text-blue-100 font-semibold">SDS 2 Kristen Palangka Raya • Kelas IV / Semester I</p>
+                </div>
+            </div>
+
+            <!-- Student Profile Badge & Score -->
+            <div class="flex items-center gap-3 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full border border-white/30">
+                <div id="userBadge" class="flex items-center gap-2 text-sm font-bold">
+                    <span id="userEmoji">👦</span>
+                    <span id="userNameDisplay">Sahabat Kecil</span>
+                </div>
+                <div class="h-4 w-px bg-white/40"></div>
+                <div class="flex items-center gap-1 font-bold text-yellow-300">
+                    <span class="pulse-star">⭐</span>
+                    <span id="starScore">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="bg-white shadow-md border-b border-sky-100 overflow-x-auto scrollbar-none sticky top-[68px] z-30">
+        <div class="max-w-7xl mx-auto px-4 flex space-x-2 py-2 text-sm font-bold whitespace-nowrap min-w-max">
+            <button onclick="switchTab('tab-home')" id="btn-tab-home" class="nav-btn active px-4 py-2 rounded-xl bg-blue-500 text-white shadow-md transition-all duration-200 flex items-center gap-2">
+                <span>🏠</span> Beranda & Mood
+            </button>
+            <button onclick="switchTab('tab-bab1')" id="btn-tab-bab1" class="nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-sky-100 transition-all duration-200 flex items-center gap-2">
+                <span>👑</span> Bab 1: Mahkota Ciptaan
+            </button>
+            <button onclick="switchTab('tab-bab2')" id="btn-tab-bab2" class="nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-sky-100 transition-all duration-200 flex items-center gap-2">
+                <span>🪞</span> Bab 2: Cermin Keunikanku
+            </button>
+            <button onclick="switchTab('tab-bab3')" id="btn-tab-bab3" class="nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-sky-100 transition-all duration-200 flex items-center gap-2">
+                <span>🛡️</span> Bab 3: Pilihan Kasih
+            </button>
+            <button onclick="switchTab('tab-bab4')" id="btn-tab-bab4" class="nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-sky-100 transition-all duration-200 flex items-center gap-2">
+                <span>🌳</span> Bab 4: Pohon Kasih
+            </button>
+            <button onclick="switchTab('tab-kuis')" id="btn-tab-kuis" class="nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-sky-100 transition-all duration-200 flex items-center gap-2">
+                <span>⭐</span> Kuis Bintang Kasih
+            </button>
+            <button onclick="switchTab('tab-proyek')" id="btn-tab-proyek" class="nav-btn px-4 py-2 rounded-xl text-slate-600 hover:bg-sky-100 transition-all duration-200 flex items-center gap-2">
+                <span>🎨</span> Kartu Syukur Digital
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-6 space-y-6">
+
+        <!-- TAB 1: BERANDA & DIAGNOSTIK NON-KOGNITIF -->
+        <section id="tab-home" class="tab-content block space-y-6">
+            <!-- Hero Banner -->
+            <div class="bg-gradient-to-br from-yellow-300 via-orange-300 to-pink-400 rounded-3xl p-6 md:p-10 shadow-xl text-slate-800 relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-20 text-9xl pointer-events-none select-none">
+                    ✨
+                </div>
+                <div class="max-w-2xl space-y-4 relative z-10">
+                    <span class="inline-block bg-white/80 backdrop-blur px-3 py-1 rounded-full text-xs md:text-sm font-bold text-orange-700 shadow-sm">
+                        📖 Pelajaran 2 • Topik Utama
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+                        Setiap Manusia Berharga di Mata Allah!
+                    </h2>
+                    <p class="text-base md:text-lg text-slate-800 font-medium leading-relaxed">
+                        Selamat datang sahabat Yesus! Mari berpetualang mengenal betapa ajaibnya dirimu diciptakan dan belajar saling mengasihi sebagai sesama ciptaan Tuhan.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Asesmen Diagnostik Non-Kognitif Section -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-sky-100 space-y-6">
+                <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+                    <span class="text-3xl">😊</span>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">Cek Perasaan & Menyapa Hari Ini</h3>
+                        <p class="text-sm text-slate-500">Mari kenalan dulu sebelum kita mulai petualangan belajar!</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Name Input -->
+                    <div class="space-y-2">
+                        <label for="studentNameInput" class="block text-sm font-bold text-slate-700">Tuliskan Namamu di Sini:</label>
+                        <input type="text" id="studentNameInput" placeholder="Contoh: Ani / Budi" class="w-full px-4 py-3 rounded-2xl border-2 border-sky-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none text-slate-800 font-bold text-lg transition-all" oninput="updateStudentName()">
+                    </div>
+
+                    <!-- Mood Picker -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700">Bagaimana Perasaanmu Hari Ini?</label>
+                        <div class="grid grid-cols-4 gap-2">
+                            <button onclick="selectMood('Senang', '😊', 'Hati yang gembira adalah obat yang manjur! Ayo belajar dengan penuh sukacita!')" class="mood-btn p-3 rounded-2xl border-2 border-slate-100 hover:border-yellow-400 bg-yellow-50 hover:bg-yellow-100 text-center transition-all">
+                                <div class="text-3xl">😊</div>
+                                <div class="text-xs font-bold mt-1">Senang</div>
+                            </button>
+                            <button onclick="selectMood('Semangat', '🔥', 'Luar biasa! Semangatmu adalah anugerah Tuhan hari ini!')" class="mood-btn p-3 rounded-2xl border-2 border-slate-100 hover:border-orange-400 bg-orange-50 hover:bg-orange-100 text-center transition-all">
+                                <div class="text-3xl">🔥</div>
+                                <div class="text-xs font-bold mt-1">Semangat</div>
+                            </button>
+                            <button onclick="selectMood('Biasa Saja', '😐', 'Tidak apa-apa! Mari kita buat hari ini lebih ceria bersama!')" class="mood-btn p-3 rounded-2xl border-2 border-slate-100 hover:border-blue-400 bg-blue-50 hover:bg-blue-100 text-center transition-all">
+                                <div class="text-3xl">😐</div>
+                                <div class="text-xs font-bold mt-1">Biasa</div>
+                            </button>
+                            <button onclick="selectMood('Sedih/Lelah', '🥺', 'Ingat ya, Tuhan Yesus sangat menyayangimu dan selalu bersamamu!')" class="mood-btn p-3 rounded-2xl border-2 border-slate-100 hover:border-pink-400 bg-pink-50 hover:bg-pink-100 text-center transition-all">
+                                <div class="text-3xl">🥺</div>
+                                <div class="text-xs font-bold mt-1">Sedih</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Affirmation Box -->
+                <div id="affirmationBox" class="hidden bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-2xl p-4 md:p-6 flex items-start gap-4 transition-all animate-fadeIn">
+                    <span id="affirmationEmoji" class="text-4xl">✨</span>
+                    <div class="space-y-1">
+                        <h4 id="affirmationTitle" class="font-bold text-blue-900 text-lg">Pesan Kasih Tuhan Untukmu:</h4>
+                        <p id="affirmationText" class="text-blue-800 text-sm font-medium leading-relaxed"></p>
+                    </div>
+                </div>
+
+                <!-- Diagnostik Kognitif Pemantik -->
+                <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 space-y-3">
+                    <h4 class="font-bold text-amber-900 flex items-center gap-2">
+                        <span>❓</span> Pertanyaan Pemantik Sebelum Belajar:
+                    </h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                        <div class="bg-white p-3 rounded-xl border border-amber-100 font-semibold text-slate-700">
+                            1. Pernahkah kamu membayangkan mengapa wajah & bakat setiap temanmu berbeda-beda?
+                        </div>
+                        <div class="bg-white p-3 rounded-xl border border-amber-100 font-semibold text-slate-700">
+                            2. Menurutmu, mengapa manusia dianggap ciptaan yang paling istimewa di bumi?
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Start Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div onclick="switchTab('tab-bab1')" class="cursor-pointer bg-white p-6 rounded-3xl shadow-md border-2 border-blue-100 hover:border-blue-400 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        👑
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Bab 1: Mahkota Ciptaan</h3>
+                    <p class="text-sm text-slate-600">Pelajari makna *Imago Dei* (Gambar & Rupa Allah) berdasarkan Kejadian 1:26-27.</p>
+                </div>
+                <div onclick="switchTab('tab-bab2')" class="cursor-pointer bg-white p-6 rounded-3xl shadow-md border-2 border-purple-100 hover:border-purple-400 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        🪞
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Bab 2: Cermin Keunikan</h3>
+                    <p class="text-sm text-slate-600">Temukan talenta dan ciri khas dirimu melalui Cermin Ajaib Interaktif!</p>
+                </div>
+                <div onclick="switchTab('tab-proyek')" class="cursor-pointer bg-white p-6 rounded-3xl shadow-md border-2 border-pink-100 hover:border-pink-400 hover:shadow-xl transition-all group">
+                    <div class="w-14 h-14 bg-pink-100 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                        🎨
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">Proyek Kartu Syukur</h3>
+                    <p class="text-sm text-slate-600">Buat karya digital kartu ucapan "Aku Unik & Berharga" untuk dipajang.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: BAB 1 - MANUSIA MAHKOTA CIPTAAN ALLAH -->
+        <section id="tab-bab1" class="tab-content hidden space-y-6">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-500 to-indigo-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Pertemuan 1</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Bab 1: Manusia Mahkota Ciptaan Allah</h2>
+                    <p class="text-blue-100 text-sm">Landasan Alkitab: Kejadian 1:26-27 & Mazmur 139</p>
+                </div>
+                <div class="text-6xl">👑</div>
+            </div>
+
+            <!-- Verse Callout -->
+            <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-6 text-amber-900 shadow-sm relative overflow-hidden">
+                <div class="absolute -right-4 -bottom-4 text-8xl opacity-10 font-serif">"</div>
+                <h3 class="font-bold text-amber-800 text-lg mb-2 flex items-center gap-2">
+                    <span>📜</span> Firman Tuhan (Kejadian 1:27):
+                </h3>
+                <blockquote class="italic text-base md:text-lg font-medium text-amber-950">
+                    "Maka Allah menciptakan manusia itu menurut gambar-Nya, menurut gambar Allah diciptakan-Nya dia; laki-laki dan perempuan diciptakan-Nya mereka."
+                </blockquote>
+            </div>
+
+            <!-- Flip Cards Section -->
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <span>💡</span> Klik Kartu di Bawah untuk Membuka Rahasia Imago Dei:
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div onclick="toggleFlip(this)" class="flip-card h-64 cursor-pointer perspective-1000">
+                        <div class="flip-card-inner relative w-full h-full rounded-3xl shadow-md transform-style-3d border-2 border-sky-200">
+                            <!-- Front -->
+                            <div class="absolute inset-0 bg-white rounded-3xl p-6 flex flex-col items-center justify-center text-center backface-hidden space-y-3">
+                                <span class="text-5xl">🌱 vs 🧑</span>
+                                <h4 class="font-bold text-lg text-slate-800">Apa Bedanya Manusia dengan Ciptaan Lain?</h4>
+                                <span class="text-xs bg-sky-100 text-sky-800 px-3 py-1 rounded-full font-bold">Sentuh untuk membalik 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 bg-blue-500 text-white rounded-3xl p-6 flex flex-col items-center justify-center text-center backface-hidden rotate-y-180 space-y-2">
+                                <h4 class="font-bold text-lg text-yellow-300">Gambar & Rupa Allah (Imago Dei)</h4>
+                                <p class="text-xs md:text-sm leading-relaxed">
+                                    Hewan dan tumbuhan diciptakan indah, namun **hanya manusia** yang diberi akal budi, perasaan, dan kemampuan untuk berhubungan serta mengasihi Allah!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div onclick="toggleFlip(this)" class="flip-card h-64 cursor-pointer perspective-1000">
+                        <div class="flip-card-inner relative w-full h-full rounded-3xl shadow-md transform-style-3d border-2 border-purple-200">
+                            <!-- Front -->
+                            <div class="absolute inset-0 bg-white rounded-3xl p-6 flex flex-col items-center justify-center text-center backface-hidden space-y-3">
+                                <span class="text-5xl">👑</span>
+                                <h4 class="font-bold text-lg text-slate-800">Mengapa Manusia Disebut Mahkota Ciptaan?</h4>
+                                <span class="text-xs bg-purple-100 text-purple-800 px-3 py-1 rounded-full font-bold">Sentuh untuk membalik 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 bg-purple-600 text-white rounded-3xl p-6 flex flex-col items-center justify-center text-center backface-hidden rotate-y-180 space-y-2">
+                                <h4 class="font-bold text-lg text-yellow-300">Paling Mulia & Istimewa</h4>
+                                <p class="text-xs md:text-sm leading-relaxed">
+                                    Manusia ditaruh sebagai puncak ciptaan Tuhan di bumi. Allah memberikan nafas hidup secara khusus dan memercayakan bumi untuk dirawat.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div onclick="toggleFlip(this)" class="flip-card h-64 cursor-pointer perspective-1000">
+                        <div class="flip-card-inner relative w-full h-full rounded-3xl shadow-md transform-style-3d border-2 border-pink-200">
+                            <!-- Front -->
+                            <div class="absolute inset-0 bg-white rounded-3xl p-6 flex flex-col items-center justify-center text-center backface-hidden space-y-3">
+                                <span class="text-5xl">💖</span>
+                                <h4 class="font-bold text-lg text-slate-800">Bagaimana Sikap Rasa Syukur Kita?</h4>
+                                <span class="text-xs bg-pink-100 text-pink-800 px-3 py-1 rounded-full font-bold">Sentuh untuk membalik 🔄</span>
+                            </div>
+                            <!-- Back -->
+                            <div class="absolute inset-0 bg-pink-500 text-white rounded-3xl p-6 flex flex-col items-center justify-center text-center backface-hidden rotate-y-180 space-y-2">
+                                <h4 class="font-bold text-lg text-yellow-300">Menjaga Harkat Diri & Sesama</h4>
+                                <p class="text-xs md:text-sm leading-relaxed">
+                                    Karena kita berharga, kita harus menjaga diri kita baik-baik dan **menghormati orang lain** sebagai sesama ciptaan yang mulia!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: BAB 2 - CERMIN KEUNIKANKU -->
+        <section id="tab-bab2" class="tab-content hidden space-y-6">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Pertemuan 2</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Bab 2: Keunikan Diriku, Karya Indah Tuhan</h2>
+                    <p class="text-purple-100 text-sm">Landasan Alkitab: Mazmur 139:13-16</p>
+                </div>
+                <div class="text-6xl">🪞</div>
+            </div>
+
+            <!-- Magic Mirror Interactive Widget -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-purple-100 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Options Selector -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div>
+                        <h3 class="text-xl font-bold text-purple-900 flex items-center gap-2">
+                            <span>✨</span> Cermin Ajaib Keunikanku
+                        </h3>
+                        <p class="text-sm text-slate-500">Pilihlah ciri khas dan talenta yang Tuhan berikan padamu!</p>
+                    </div>
+
+                    <!-- Physical Traits -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700">1. Bentuk / Gaya Rambutku:</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setMirrorHair('Lurus')" class="mirror-hair-btn p-2 rounded-xl border-2 border-slate-200 hover:border-purple-400 font-semibold text-xs md:text-sm text-center">🧑 Rambut Lurus</button>
+                            <button onclick="setMirrorHair('Keriting')" class="mirror-hair-btn p-2 rounded-xl border-2 border-slate-200 hover:border-purple-400 font-semibold text-xs md:text-sm text-center">👨‍🦱 Rambut Keriting</button>
+                            <button onclick="setMirrorHair('Gelombang')" class="mirror-hair-btn p-2 rounded-xl border-2 border-slate-200 hover:border-purple-400 font-semibold text-xs md:text-sm text-center">👩 Rambut Gelombang</button>
+                        </div>
+                    </div>
+
+                    <!-- Talents Checklist -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700">2. Talenta & Bakat Istimewa (Pilih yang kamu sukai):</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs md:text-sm">
+                            <label class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100 font-semibold cursor-pointer">
+                                <input type="checkbox" value="🎵 Menyanyi / Musik" onchange="updateMirrorCard()" class="talent-check accent-purple-600 w-4 h-4">
+                                🎵 Menyanyi/Musik
+                            </label>
+                            <label class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100 font-semibold cursor-pointer">
+                                <input type="checkbox" value="🎨 Menggambar / Melukis" onchange="updateMirrorCard()" class="talent-check accent-purple-600 w-4 h-4">
+                                🎨 Menggambar
+                            </label>
+                            <label class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100 font-semibold cursor-pointer">
+                                <input type="checkbox" value="⚽ Olahraga / Lari" onchange="updateMirrorCard()" class="talent-check accent-purple-600 w-4 h-4">
+                                ⚽ Olahraga
+                            </label>
+                            <label class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100 font-semibold cursor-pointer">
+                                <input type="checkbox" value="🔢 Matematika / Berhitung" onchange="updateMirrorCard()" class="talent-check accent-purple-600 w-4 h-4">
+                                🔢 Berhitung
+                            </label>
+                            <label class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100 font-semibold cursor-pointer">
+                                <input type="checkbox" value="📚 Tekun Membaca" onchange="updateMirrorCard()" class="talent-check accent-purple-600 w-4 h-4">
+                                📚 Tekun Membaca
+                            </label>
+                            <label class="flex items-center gap-2 p-2 bg-purple-50 rounded-xl border border-purple-100 font-semibold cursor-pointer">
+                                <input type="checkbox" value="💃 Menari / Seni" onchange="updateMirrorCard()" class="talent-check accent-purple-600 w-4 h-4">
+                                💃 Menari
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Positive Characters -->
+                    <div class="space-y-2">
+                        <label class="block text-sm font-bold text-slate-700">3. Sifat/Karakter Baikku:</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <button onclick="setMirrorTrait('Suka Menolong')" class="mirror-trait-btn p-2 rounded-xl border-2 border-slate-200 hover:border-purple-400 font-semibold text-xs text-center">🤝 Suka Menolong</button>
+                            <button onclick="setMirrorTrait('Sabar & Pemaaf')" class="mirror-trait-btn p-2 rounded-xl border-2 border-slate-200 hover:border-purple-400 font-semibold text-xs text-center">🕊️ Sabar & Pemaaf</button>
+                            <button onclick="setMirrorTrait('Ceria & Ramah')" class="mirror-trait-btn p-2 rounded-xl border-2 border-slate-200 hover:border-purple-400 font-semibold text-xs text-center">😊 Ceria & Ramah</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Live Mirror Card Preview -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                    <div class="w-full bg-gradient-to-b from-purple-600 via-purple-700 to-indigo-900 text-white rounded-3xl p-6 shadow-2xl border-4 border-yellow-300 relative overflow-hidden text-center space-y-4">
+                        <div class="inline-block bg-yellow-400 text-slate-900 text-xs font-black px-4 py-1 rounded-full shadow-sm">
+                            ✨ MIRROR AFIRMASI ALKITAB ✨
+                        </div>
+
+                        <div class="w-24 h-24 mx-auto bg-white/20 rounded-full flex items-center justify-center text-5xl shadow-inner border-2 border-white/40 bounce-gentle">
+                            🪞
+                        </div>
+
+                        <div class="space-y-1">
+                            <h4 id="mirrorNameDisplay" class="text-2xl font-black text-yellow-300">Sahabat Istimewa</h4>
+                            <p id="mirrorHairDisplay" class="text-xs text-purple-200 font-semibold">Rambut: Belum dipilih</p>
+                        </div>
+
+                        <div class="bg-white/10 backdrop-blur rounded-2xl p-3 text-left space-y-2 text-xs border border-white/20">
+                            <div>
+                                <span class="font-bold text-yellow-300">Talenta Tuhan:</span>
+                                <p id="mirrorTalentsDisplay" class="text-purple-100">Belum memilih talenta.</p>
+                            </div>
+                            <div>
+                                <span class="font-bold text-yellow-300">Karakter Baik:</span>
+                                <p id="mirrorTraitDisplay" class="text-purple-100">Belum memilih sifat.</p>
+                            </div>
+                        </div>
+
+                        <blockquote class="italic text-xs text-yellow-100 bg-purple-950/40 p-3 rounded-xl border border-yellow-300/30">
+                            "Aku bersyukur kepada-Mu oleh karena kejadianku dahsyat dan ajaib!"
+                            <div class="font-bold text-right text-[10px] mt-1 text-yellow-300">- Mazmur 139:14</div>
+                        </blockquote>
+
+                        <button onclick="revealMirrorAffirmation()" class="w-full py-3 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-bold rounded-xl shadow-lg transition-all active:scale-95 text-sm">
+                            ✨ Terima Berkat Afirmasi! ✨
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 4: BAB 3 - PILIHAN KASIH (MINI GAME) -->
+        <section id="tab-bab3" class="tab-content hidden space-y-6">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-emerald-500 to-teal-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Pertemuan 3</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Bab 3: Menghargai Diri Sendiri & Sesama</h2>
+                    <p class="text-teal-100 text-sm">Mini Game Studi Kasus: Pilih Tindakan Penuh Kasih!</p>
+                </div>
+                <div class="text-6xl">🛡️</div>
+            </div>
+
+            <!-- Game Board -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-teal-100 space-y-6">
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <span>🎮</span> Permainan Studi Kasus Kasih
+                    </h3>
+                    <div class="text-sm font-bold text-teal-700 bg-teal-50 px-3 py-1 rounded-full">
+                        Kasus <span id="caseIndex">1</span> dari 3
+                    </div>
+                </div>
+
+                <!-- Case Scenario Card -->
+                <div id="caseCard" class="bg-gradient-to-r from-sky-50 to-teal-50 border-2 border-teal-200 rounded-3xl p-6 space-y-4">
+                    <div class="flex items-start gap-4">
+                        <div id="caseEmoji" class="text-5xl bg-white p-3 rounded-2xl shadow-sm border border-teal-100">
+                            👩‍🦽
+                        </div>
+                        <div class="space-y-1">
+                            <h4 id="caseTitle" class="text-lg font-bold text-teal-950">Studi Kasus 1: Teman Baru Budi</h4>
+                            <p id="caseDescription" class="text-slate-700 text-sm md:text-base leading-relaxed">
+                                Budi adalah seorang anak pendiam yang menggunakan kursi roda. Saat jam istirahat, beberapa teman asyik bermain sepak bola dan meninggalkan Budi sendirian. Apa yang sebaiknya kamu lakukan?
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Choices -->
+                    <div id="caseChoices" class="grid grid-cols-1 gap-3 pt-2">
+                        <!-- Generated via JS -->
+                    </div>
+                </div>
+
+                <!-- Feedback Box -->
+                <div id="caseFeedback" class="hidden rounded-2xl p-4 md:p-6 space-y-2 border-2 transition-all">
+                    <h4 id="feedbackTitle" class="font-bold text-lg"></h4>
+                    <p id="feedbackText" class="text-sm font-medium"></p>
+                    <button onclick="nextCaseScenario()" class="mt-2 px-5 py-2 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl shadow transition-all">
+                        Lanjut ke Kasus Berikutnya ➡️
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: BAB 4 - POHON KASIH PERSEKUTUAN -->
+        <section id="tab-bab4" class="tab-content hidden space-y-6">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-green-500 to-emerald-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Pertemuan 4</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Bab 4: Hidup Saling Mengasihi dalam Persekutuan</h2>
+                    <p class="text-green-100 text-sm">Simulasi: Tumbuhkan Pohon Kasih di Kelas Kita!</p>
+                </div>
+                <div class="text-6xl">🌳</div>
+            </div>
+
+            <!-- Tree Simulation Canvas Area -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-green-100 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Tree Visual Graphic -->
+                <div class="md:col-span-6 flex flex-col items-center justify-center space-y-4">
+                    <div class="relative w-full max-w-sm h-72 bg-gradient-to-b from-sky-100 to-green-100 rounded-3xl border-4 border-green-300 flex flex-col items-center justify-end p-4 overflow-hidden shadow-inner">
+                        
+                        <!-- Floating Leaves / Hearts Container -->
+                        <div id="treeCrown" class="relative w-48 h-48 bg-emerald-500 rounded-full border-4 border-emerald-400 flex items-center justify-center shadow-lg transition-all duration-500 transform scale-75">
+                            <span id="treeCenterEmoji" class="text-6xl">🌱</span>
+                            
+                            <!-- Dynamic Leaf Badges -->
+                            <div id="leafContainer" class="absolute inset-0"></div>
+                        </div>
+
+                        <!-- Tree Trunk -->
+                        <div class="w-12 h-20 bg-amber-800 rounded-t-lg shadow-md border-2 border-amber-900"></div>
+                        <!-- Ground -->
+                        <div class="w-full h-6 bg-green-600 rounded-full -mt-2 shadow-inner"></div>
+                    </div>
+
+                    <!-- Growth Bar -->
+                    <div class="w-full max-w-sm space-y-1">
+                        <div class="flex justify-between text-xs font-bold text-green-800">
+                            <span>Pertumbuhan Kasih Kelas:</span>
+                            <span id="treeGrowthText">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-4 rounded-full overflow-hidden p-0.5">
+                            <div id="treeProgressBar" class="bg-gradient-to-r from-yellow-400 to-green-500 h-full rounded-full w-0 transition-all duration-500"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Action Buttons -->
+                <div class="md:col-span-6 space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <span>🍎</span> Klik Aksi Kasih Nyata di Bawah Ini:
+                    </h3>
+                    <p class="text-xs text-slate-500">Setiap kali kamu melakukan aksi kasih di sekolah atau rumah, Pohon Kasih akan berbuah lebat!</p>
+
+                    <div class="space-y-3">
+                        <button onclick="addLoveAction('Menyambut anak baru dengan senyuman ramah', '🤝')" class="w-full p-3.5 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-2xl flex items-center gap-3 text-left font-bold text-slate-800 transition-all hover:scale-[1.02] active:scale-95">
+                            <span class="text-2xl">🤝</span>
+                            <span class="text-xs md:text-sm">Menyambut teman baru yang belum punya kawan</span>
+                        </button>
+                        <button onclick="addLoveAction('Berbagi bekal makanan saat jam istirahat', '🍱')" class="w-full p-3.5 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-2xl flex items-center gap-3 text-left font-bold text-slate-800 transition-all hover:scale-[1.02] active:scale-95">
+                            <span class="text-2xl">🍱</span>
+                            <span class="text-xs md:text-sm">Berbagi bekal makanan dengan teman yang lupa membawa</span>
+                        </button>
+                        <button onclick="addLoveAction('Menolong teman yang terjatuh saat bermain', '🩹')" class="w-full p-3.5 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-2xl flex items-center gap-3 text-left font-bold text-slate-800 transition-all hover:scale-[1.02] active:scale-95">
+                            <span class="text-2xl">🩹</span>
+                            <span class="text-xs md:text-sm">Menolong & mengobati teman yang terjatuh di lapangan</span>
+                        </button>
+                        <button onclick="addLoveAction('Mendoakan teman yang sedang sakit', '🙏')" class="w-full p-3.5 bg-green-50 hover:bg-green-100 border-2 border-green-200 rounded-2xl flex items-center gap-3 text-left font-bold text-slate-800 transition-all hover:scale-[1.02] active:scale-95">
+                            <span class="text-2xl">🙏</span>
+                            <span class="text-xs md:text-sm">Mendoakan sahabat yang sedang bersedih atau sakit</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 6: KUIS BINTANG KASIH -->
+        <section id="tab-kuis" class="tab-content hidden space-y-6">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Evaluasi Formatif</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Kuis Seru: Bintang Kasih</h2>
+                    <p class="text-yellow-100 text-sm">Uji Pemahamanmu & Dapatkan 100 Bintang Kasih!</p>
+                </div>
+                <div class="text-6xl">⭐</div>
+            </div>
+
+            <!-- Quiz Container -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-yellow-200 space-y-6">
+                <!-- Progress Header -->
+                <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+                    <div class="space-y-1">
+                        <span class="text-xs font-bold text-slate-400 uppercase">Pertanyaan</span>
+                        <div class="text-lg font-bold text-slate-800">Soal <span id="quizCurrentNum">1</span> dari 10</div>
+                    </div>
+                    <div class="flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-2xl border border-yellow-200 font-bold text-yellow-800">
+                        <span>⭐ Skor:</span>
+                        <span id="quizScoreText">0</span>
+                    </div>
+                </div>
+
+                <!-- Question Box -->
+                <div id="quizQuestionBox" class="space-y-6">
+                    <h3 id="quizQuestionText" class="text-lg md:text-xl font-bold text-slate-900 leading-snug">
+                        <!-- Text loaded by JS -->
+                    </h3>
+
+                    <!-- Options -->
+                    <div id="quizOptionsContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Options loaded by JS -->
+                    </div>
+                </div>
+
+                <!-- Quiz Explanation Modal / Box -->
+                <div id="quizExplanation" class="hidden bg-blue-50 border-2 border-blue-200 rounded-2xl p-5 space-y-3">
+                    <h4 id="quizResultTitle" class="font-bold text-lg"></h4>
+                    <p id="quizResultText" class="text-sm text-slate-700"></p>
+                    <button onclick="nextQuizQuestion()" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow transition-all">
+                        Soal Selanjutnya ➡️
+                    </button>
+                </div>
+
+                <!-- Quiz Complete Result Screen -->
+                <div id="quizResultScreen" class="hidden text-center space-y-6 py-8">
+                    <div class="text-7xl bounce-gentle">🏆</div>
+                    <div class="space-y-2">
+                        <h3 class="text-3xl font-extrabold text-slate-900">Luar Biasa, Kamu Hebat!</h3>
+                        <p class="text-slate-600">Kamu telah menyelesaikan Kuis Bintang Kasih!</p>
+                    </div>
+                    <div class="inline-block bg-yellow-100 border-2 border-yellow-300 rounded-3xl p-6 text-yellow-900 max-w-md w-full">
+                        <div class="text-xs font-bold uppercase tracking-wider text-yellow-700">Skor Akhir Kamu</div>
+                        <div id="finalScoreDisplay" class="text-5xl font-black my-2">100</div>
+                        <div id="predikatDisplay" class="text-sm font-bold bg-white py-1 px-4 rounded-full text-yellow-800 shadow-sm inline-block">Predikat: Sangat Baik</div>
+                    </div>
+                    <div>
+                        <button onclick="restartQuiz()" class="px-6 py-3 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-bold rounded-2xl shadow-lg transition-all">
+                            🔄 Ulangi Kuis
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: PROYEK KREATIF DIGITAL KARTU SYUKUR -->
+        <section id="tab-proyek" class="tab-content hidden space-y-6">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 rounded-3xl p-6 text-white shadow-lg flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="space-y-2">
+                    <span class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">Asesmen Akhir Pembelajaran</span>
+                    <h2 class="text-2xl md:text-3xl font-extrabold">Proyek Digital: Kartu Ucapan Syukur</h2>
+                    <p class="text-pink-100 text-sm">Tema: "Aku Unik dan Berharga di Mata Tuhan"</p>
+                </div>
+                <div class="text-6xl">🎨</div>
+            </div>
+
+            <!-- Card Maker Workspace -->
+            <div class="bg-white rounded-3xl p-6 md:p-8 shadow-md border-2 border-pink-100 grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Form Inputs -->
+                <div class="lg:col-span-6 space-y-4">
+                    <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                        <span>✏️</span> Isi Data Kartu Ucapanmu:
+                    </h3>
+
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Tema / Warna Bingkai:</label>
+                            <select id="cardThemeSelect" onchange="renderDigitalCard()" class="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none font-semibold">
+                                <option value="gold">🟡 Emas Anugerah (Gold & Yellow)</option>
+                                <option value="sky">🔵 Biru Langit (Sky Blue)</option>
+                                <option value="pink">💖 Merah Muda Kasih (Pink Rose)</option>
+                                <option value="garden">🟢 Taman Syukur (Emerald Green)</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Nama Siswa & Sekolah:</label>
+                            <input type="text" id="cardNameInput" placeholder="Nama Lengkap / Kelas IV SDS 2 Kristen" class="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none font-semibold" oninput="renderDigitalCard()">
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">3 Keunikan Diri yang Kamu Syukuri:</label>
+                            <textarea id="cardTraitsInput" rows="2" placeholder="1. Punya senyum ceria&#10;2. Suka melukis&#10;3. Suka menolong teman" class="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none font-semibold" oninput="renderDigitalCard()"></textarea>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Ayat Alkitab Pilihan:</label>
+                            <select id="cardVerseSelect" onchange="renderDigitalCard()" class="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none font-semibold">
+                                <option value="Mazmur 139:14">Mazmur 139:14 - "Aku bersyukur kepada-Mu oleh karena kejadianku dahsyat dan ajaib."</option>
+                                <option value="Kejadian 1:27">Kejadian 1:27 - "Allah menciptakan manusia menurut gambar dan rupa-Nya."</option>
+                                <option value="Yohanes 15:12">Yohanes 15:12 - "Kasihilah seorang akan yang lain, seperti Aku telah mengasihi kamu."</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block font-bold text-slate-700 mb-1">Janji Kasih Kepada Teman:</label>
+                            <input type="text" id="cardPromiseInput" placeholder="Contoh: Saya berjanji tidak akan mengejek teman dan selalu membantu." class="w-full px-4 py-2.5 rounded-xl border-2 border-slate-200 focus:border-pink-500 outline-none font-semibold" oninput="renderDigitalCard()">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Realtime Card Canvas Preview -->
+                <div class="lg:col-span-6 flex flex-col items-center justify-center space-y-4">
+                    <!-- The Digital Card -->
+                    <div id="digitalCardPreview" class="w-full max-w-md bg-gradient-to-br from-yellow-100 via-amber-50 to-orange-100 border-8 border-yellow-400 rounded-3xl p-6 shadow-2xl space-y-4 text-slate-800 relative overflow-hidden transition-all">
+                        <div class="flex justify-between items-center border-b-2 border-yellow-300/60 pb-3">
+                            <div class="text-xs font-black uppercase tracking-wider text-amber-800">Kartu Syukur Anak Tuhan</div>
+                            <div class="text-2xl">✝️</div>
+                        </div>
+
+                        <div class="text-center space-y-1">
+                            <h4 id="previewCardName" class="text-2xl font-black text-amber-950">Sahabat Kecil</h4>
+                            <p class="text-xs text-amber-700 font-bold">SDS 2 Kristen • Kelas IV</p>
+                        </div>
+
+                        <div class="bg-white/80 backdrop-blur rounded-2xl p-4 border border-yellow-200 space-y-2 text-xs">
+                            <div class="font-bold text-amber-900 border-b border-yellow-100 pb-1">3 Keunikanku Karya Tuhan:</div>
+                            <div id="previewCardTraits" class="whitespace-pre-line text-slate-700 font-medium">
+                                1. Punya senyum ramah&#10;2. Suka menyanyi&#10;3. Pemberani
+                            </div>
+                        </div>
+
+                        <div class="bg-amber-900 text-yellow-100 p-3 rounded-2xl text-xs italic text-center space-y-1 border border-yellow-400/40">
+                            <p id="previewCardVerse">"Aku bersyukur kepada-Mu oleh karena kejadianku dahsyat dan ajaib!"</p>
+                            <div id="previewCardVerseRef" class="font-bold text-yellow-300 text-[10px]">- Mazmur 139:14</div>
+                        </div>
+
+                        <div class="bg-pink-50 border border-pink-200 rounded-2xl p-3 text-xs space-y-1">
+                            <div class="font-bold text-pink-900">Janjiku Mengasihi Teman:</div>
+                            <p id="previewCardPromise" class="text-pink-800 font-medium italic">"Saya berjanji tidak akan mengejek teman dan selalu berbagi."</p>
+                        </div>
+
+                        <div class="flex justify-between items-center text-[10px] font-bold text-amber-700 pt-2 border-t border-yellow-300/40">
+                            <span>SDS 2 Kristen Palangka Raya</span>
+                            <span>Tahun Ajaran 2025/2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Print / Download Action -->
+                    <button onclick="printCard()" class="px-6 py-3 bg-pink-600 hover:bg-pink-700 text-white font-bold rounded-2xl shadow-lg transition-all flex items-center gap-2 text-sm">
+                        <span>🖨️</span> Cetak / Simpan Kartu Ucapan
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white mt-12 border-t border-slate-800 py-6 text-center text-xs space-y-2">
+        <p class="font-bold text-slate-300">Media Pembelajaran Interaktif Pendidikan Agama Kristen SD</p>
+        <p class="text-slate-400">SDS 2 Kristen Palangka Raya • Penyusun: Rian Andika Prawira, S.Pd • Kepala Sekolah: Marisa, S.Th</p>
+        <p class="text-slate-500">Berjalan berdasarkan Capaian Pembelajaran Kurikulum Deep Learning (KBC Panca Cinta) 2025/2026</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Web Audio API Sound Generator for Kid-Friendly Feedback
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            const now = audioCtx.currentTime;
+
+            if (type === 'click') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(400, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.08);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
+                osc.start(now);
+                osc.stop(now + 0.08);
+            } else if (type === 'correct') {
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, now); // C5
+                osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.35);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'wrong') {
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(250, now);
+                osc.frequency.setValueAtTime(180, now + 0.15);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.3);
+                osc.start(now);
+                osc.stop(now + 0.3);
+            } else if (type === 'star') {
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, now);
+                osc.frequency.setValueAtTime(1200, now + 0.1);
+                gain.gain.setValueAtTime(0.2, now);
+                gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
+                osc.start(now);
+                osc.stop(now + 0.25);
+            }
+        }
+
+        // Global State
+        let studentName = "Sahabat Kecil";
+        let starScore = 0;
+        let selectedHair = "";
+        let selectedTrait = "";
+
+        // Navigation Switching Logic
+        function switchTab(tabId) {
+            playSound('click');
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-500', 'text-white', 'shadow-md');
+                btn.classList.add('text-slate-600');
+            });
+
+            const activeBtn = document.getElementById('btn-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.add('bg-blue-500', 'text-white', 'shadow-md');
+                activeBtn.classList.remove('text-slate-600');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function addStars(amount) {
+            starScore += amount;
+            document.getElementById('starScore').innerText = starScore;
+            playSound('star');
+        }
+
+        // Student Name Handler
+        function updateStudentName() {
+            const inputVal = document.getElementById('studentNameInput').value.trim();
+            studentName = inputVal !== "" ? inputVal : "Sahabat Kecil";
+            document.getElementById('userNameDisplay').innerText = studentName;
+            document.getElementById('mirrorNameDisplay').innerText = studentName;
+            renderDigitalCard();
+        }
+
+        // Mood Picker Handler
+        function selectMood(moodName, emoji, message) {
+            playSound('correct');
+            document.getElementById('userEmoji').innerText = emoji;
+            const box = document.getElementById('affirmationBox');
+            document.getElementById('affirmationEmoji').innerText = emoji;
+            document.getElementById('affirmationTitle').innerText = `Halo ${studentName}! Kamu memilih mood: ${moodName}`;
+            document.getElementById('affirmationText').innerText = message + " Ingatlah: Kamu diciptakan menurut gambar Allah dan sangat berharga!";
+            box.classList.remove('hidden');
+            addStars(5);
+        }
+
+        // Flip Cards Handler
+        function toggleFlip(cardEl) {
+            playSound('click');
+            cardEl.classList.toggle('flipped');
+        }
+
+        // Mirror Widget Handlers
+        function setMirrorHair(hairType) {
+            playSound('click');
+            selectedHair = hairType;
+            document.getElementById('mirrorHairDisplay').innerText = "Rambut: " + hairType;
+            document.querySelectorAll('.mirror-hair-btn').forEach(b => b.classList.remove('border-purple-600', 'bg-purple-100'));
+            event.currentTarget.classList.add('border-purple-600', 'bg-purple-100');
+            updateMirrorCard();
+        }
+
+        function setMirrorTrait(trait) {
+            playSound('click');
+            selectedTrait = trait;
+            document.getElementById('mirrorTraitDisplay').innerText = trait;
+            document.querySelectorAll('.mirror-trait-btn').forEach(b => b.classList.remove('border-purple-600', 'bg-purple-100'));
+            event.currentTarget.classList.add('border-purple-600', 'bg-purple-100');
+            updateMirrorCard();
+        }
+
+        function updateMirrorCard() {
+            const checkedTalents = Array.from(document.querySelectorAll('.talent-check:checked')).map(c => c.value);
+            const talentsDisplay = checkedTalents.length > 0 ? checkedTalents.join(', ') : "Belum memilih talenta.";
+            document.getElementById('mirrorTalentsDisplay').innerText = talentsDisplay;
+        }
+
+        function revealMirrorAffirmation() {
+            playSound('star');
+            confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 } });
+            addStars(10);
+        }
+
+        // CASE STUDY MINI GAME DATA & LOGIC
+        const caseScenarios = [
+            {
+                emoji: "👩‍🦽",
+                title: "Studi Kasus 1: Teman Baru Budi",
+                desc: "Budi adalah seorang anak pendiam yang menggunakan kursi roda. Saat jam istirahat, beberapa teman asyik bermain sepak bola dan meninggalkan Budi sendirian di pinggir lapangan. Apa yang sebaiknya kamu lakukan?",
+                choices: [
+                    { text: "A. Mengajak Ani & kawan-kawan bermain game papan (catur/ludo) bersama Budi.", correct: true, feedback: "Hebat sekali! Seperti kisah di modul, mengajak Budi bermain game papan adalah wujud menghargai sesama tanpa membeda-bedakan fisik." },
+                    { text: "B. Membiarkan Budi sendirian karena dia tidak bisa berlari.", correct: false, feedback: "Kurang tepat. Semua anak berharga dan butuh sahabat. Mari rangkul Budi!" },
+                    { text: "C. Mengetawai Budi karena tidak bisa ikut main bola.", correct: false, feedback: "Tindakan ini menyakiti hati Budi dan merendahkan ciptaan Tuhan." }
+                ]
+            },
+            {
+                emoji: "🎨",
+                title: "Studi Kasus 2: Perbedaan Warna Kulit",
+                desc: "Di kelas, ada seorang murid yang mengejek warna kulit temannya yang gelap hingga teman tersebut merasa sedih dan rendah diri. Bagaimana caramu menegurnya?",
+                choices: [
+                    { text: "A. Ikut-ikutan mengejek agar disukai teman-teman.", correct: false, feedback: "Sangat tidak baik! Tuhan menciptakan warna kulit yang beragam secara indah." },
+                    { text: "B. Menegur dengan sopan dan mengingatkan bahwa semua warna kulit adalah ciptaan Tuhan yang baik.", correct: true, feedback: "Luar biasa! Menegur dengan kasih menunjukkan keberanian membela martabat sesama ciptaan Allah." },
+                    { text: "C. Pura-pura tidak mendengar dan langsung pergi.", correct: false, feedback: "Sebagai anak Tuhan, kita dipanggil untuk berani berbuat baik dan melindungi teman." }
+                ]
+            },
+            {
+                emoji: "📚",
+                title: "Studi Kasus 3: Budi Merasa Tidak Pintar",
+                desc: "Budi merasa sedih karena nilainya tidak sebagus teman-temannya. Ia merasa dirinya tidak berguna. Apa kata-kata penguatan yang dapat kamu sampaikan padanya?",
+                choices: [
+                    { text: "A. 'Kamu memang tidak pintar, jadi tidak usah belajar lagi.'", correct: false, feedback: "Kata-kata ini dapat merusak semangat teman." },
+                    { text: "B. 'Ingat Budi, Tuhan Yesus mengasihimu! Kepintaran bukan penentu harga dirimu, kamu punya keunikan lain!'", correct: true, feedback: "Jawaban indah! Nilai manusia berharga bukan karena prestasi semata, tetapi karena dikasihi Tuhan secara pribadi." },
+                    { text: "C. 'Biarkan saja, yang penting nilaiku bagus.'", correct: false, feedback: "Anak Tuhan diajarkan untuk tidak egois, melainkan saling peduli." }
+                ]
+            }
+        ];
+
+        let currentCaseIdx = 0;
+
+        function renderCaseScenario() {
+            const sc = caseScenarios[currentCaseIdx];
+            document.getElementById('caseIndex').innerText = currentCaseIdx + 1;
+            document.getElementById('caseEmoji').innerText = sc.emoji;
+            document.getElementById('caseTitle').innerText = sc.title;
+            document.getElementById('caseDescription').innerText = sc.desc;
+            document.getElementById('caseFeedback').classList.add('hidden');
+
+            const choicesDiv = document.getElementById('caseChoices');
+            choicesDiv.innerHTML = '';
+
+            sc.choices.forEach((ch, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "w-full p-4 text-left font-bold border-2 border-slate-200 hover:border-teal-400 bg-white hover:bg-teal-50 rounded-2xl transition-all text-xs md:text-sm text-slate-800 shadow-sm";
+                btn.innerText = ch.text;
+                btn.onclick = () => handleCaseChoice(ch);
+                choicesDiv.appendChild(btn);
+            });
+        }
+
+        function handleCaseChoice(choice) {
+            const fbBox = document.getElementById('caseFeedback');
+            fbBox.classList.remove('hidden', 'bg-emerald-50', 'bg-rose-50', 'border-emerald-300', 'border-rose-300', 'text-emerald-950', 'text-rose-950');
+
+            if (choice.correct) {
+                playSound('correct');
+                addStars(15);
+                fbBox.classList.add('bg-emerald-50', 'border-emerald-300', 'text-emerald-950');
+                document.getElementById('feedbackTitle').innerText = "🎉 Jawaban Kasih yang Tepat!";
+            } else {
+                playSound('wrong');
+                fbBox.classList.add('bg-rose-50', 'border-rose-300', 'text-rose-950');
+                document.getElementById('feedbackTitle').innerText = "💡 Perlu Pertimbangan Kasih";
+            }
+            document.getElementById('feedbackText').innerText = choice.feedback;
+        }
+
+        function nextCaseScenario() {
+            currentCaseIdx = (currentCaseIdx + 1) % caseScenarios.length;
+            renderCaseScenario();
+        }
+
+        // POHON KASIH SIMULATION LOGIC
+        let treeGrowth = 0;
+        function addLoveAction(actionText, emoji) {
+            playSound('correct');
+            treeGrowth = Math.min(100, treeGrowth + 25);
+            document.getElementById('treeGrowthText').innerText = treeGrowth + "%";
+            document.getElementById('treeProgressBar').style.width = treeGrowth + "%";
+
+            // Add Leaf Badge
+            const container = document.getElementById('leafContainer');
+            const leaf = document.createElement('div');
+            leaf.className = "absolute text-2xl animate-bounce";
+            leaf.style.left = Math.floor(Math.random() * 70 + 15) + "%";
+            leaf.style.top = Math.floor(Math.random() * 70 + 15) + "%";
+            leaf.innerText = emoji;
+            container.appendChild(leaf);
+
+            const crown = document.getElementById('treeCrown');
+            crown.style.transform = `scale(${0.75 + (treeGrowth / 200)})`;
+
+            if (treeGrowth === 100) {
+                confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
+                document.getElementById('treeCenterEmoji').innerText = "🍎";
+            }
+            addStars(10);
+        }
+
+        // KUIS BINTANG KASIH DATA & LOGIC
+        const quizQuestions = [
+            { q: "1. Alkitab berkata manusia diciptakan sangat istimewa. Manusia berharga di mata Allah karena diciptakan menurut...", opts: ["A. Keinginan sendiri", "B. Gambar dan rupa Allah", "C. Kemauan malaikat", "D. Pikiran manusia"], ans: 1, exp: "Kejadian 1:27 mencatat manusia diciptakan menurut gambar dan rupa Allah (Imago Dei)." },
+            { q: "2. Allah memberikan nafas hidup kepada manusia. Bukti bahwa Allah sangat mengasihi kita adalah...", opts: ["A. Dibiarkan sendirian", "B. Diberi kehidupan dan berkat", "C. Diberi hukuman terus", "D. Dijauhi oleh teman"], ans: 1, exp: "Tuhan menganugerahkan nafas hidup dan berkat melimpah bagi kita setiap hari." },
+            { q: "3. Setiap anak memiliki warna kulit yang berbeda. Perbedaan fisik pada manusia menunjukkan bahwa Allah itu...", opts: ["A. Pilih kasih", "B. Maha Kreatif", "C. Tidak adil", "D. Lupa"], ans: 1, exp: "Allah adalah Pencipta yang Maha Kreatif, merancang setiap manusia secara unik." },
+            { q: "4. Budi pandai menyanyi, sedangkan Ani pandai melukis. Perbedaan bakat ini disebut sebagai...", opts: ["A. Kelemahan", "B. Keunikan", "C. Kesalahan", "D. Masalah"], ans: 1, exp: "Perbedaan bakat dan fisik merupakan keunikan ciptaan Tuhan yang saling melengkapi." },
+            { q: "5. Tuhan memberikan tubuh yang sehat kepada kita. Cara bersyukur atas tubuh pemberian Allah adalah...", opts: ["A. Malas mandi", "B. Makan sembarangan", "C. Menjaga kebersihan & kesehatan", "D. Tidur larut malam"], ans: 2, exp: "Tubuh adalah bait Roh Kudus yang wajib kita rawat dan jaga kebersihannya." },
+            { q: "6. Ada teman yang memiliki rambut keriting. Sikap yang benar terhadap teman tersebut adalah...", opts: ["A. Mengejeknya", "B. Menertawakannya", "C. Menghargainya", "D. Menjauhinya"], ans: 2, exp: "Semua jenis rambut diciptakan indah oleh Allah, maka kita wajib saling menghargai." },
+            { q: "7. Tuhan Yesus mengajarkan kita untuk saling mengasihi. Contoh hidup mengasihi di sekolah adalah...", opts: ["A. Berebut mainan", "B. Berbagi makanan & membantu", "C. Bertengkar", "D. Saling mengejek"], ans: 1, exp: "Tindakan berbagi dan membantu teman mencerminkan kasih Tuhan Yesus." },
+            { q: "8. Seorang teman jatuh saat bermain lari-larian. Tindakan yang sesuai ajaran kasih adalah...", opts: ["A. Menolongnya berdiri", "B. Meninggalkannya", "C. Menyorakinya", "D. Pura-pura tidak tahu"], ans: 0, exp: "Segera menolong teman yang sedang kesusahan adalah perintah kasih Kristus." },
+            { q: "9. Berbicara kepada guru atau orang tua. Anak Tuhan harus berbicara dengan...", opts: ["A. Keras", "B. Sopan dan santun", "C. Marah", "D. Cepat"], ans: 1, exp: "Anak-anak Kristus diajar untuk berbicara dengan bahasa yang sopan dan santun." },
+            { q: "10. Allah menciptakan manusia berbeda-beda agar kita bisa saling...", opts: ["A. Memusuhi", "B. Melengkapi", "C. Bersaing", "D. Membenci"], ans: 1, exp: "Keunikan membuat kita saling melengkapi satu sama lain dalam persekutuan." }
+        ];
+
+        let currentQuizIdx = 0;
+        let quizScore = 0;
+
+        function renderQuizQuestion() {
+            const q = quizQuestions[currentQuizIdx];
+            document.getElementById('quizCurrentNum').innerText = currentQuizIdx + 1;
+            document.getElementById('quizQuestionText').innerText = q.q;
+            document.getElementById('quizExplanation').classList.add('hidden');
+
+            const container = document.getElementById('quizOptionsContainer');
+            container.innerHTML = '';
+
+            q.opts.forEach((optText, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "p-4 border-2 border-slate-200 hover:border-yellow-400 bg-white hover:bg-yellow-50 font-bold rounded-2xl text-left text-xs md:text-sm text-slate-800 transition-all shadow-sm";
+                btn.innerText = optText;
+                btn.onclick = () => submitQuizAnswer(idx);
+                container.appendChild(btn);
+            });
+        }
+
+        function submitQuizAnswer(selectedIdx) {
+            const q = quizQuestions[currentQuizIdx];
+            const expBox = document.getElementById('quizExplanation');
+            expBox.classList.remove('hidden');
+
+            if (selectedIdx === q.ans) {
+                playSound('correct');
+                quizScore += 10;
+                document.getElementById('quizScoreText').innerText = quizScore;
+                document.getElementById('quizResultTitle').innerText = "✅ Benar Sekali!";
+                document.getElementById('quizResultTitle').className = "font-bold text-lg text-emerald-700";
+            } else {
+                playSound('wrong');
+                document.getElementById('quizResultTitle').innerText = "❌ Kurang Tepat!";
+                document.getElementById('quizResultTitle').className = "font-bold text-lg text-rose-700";
+            }
+            document.getElementById('quizResultText').innerText = q.exp;
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIdx++;
+            if (currentQuizIdx < quizQuestions.length) {
+                renderQuizQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        function finishQuiz() {
+            document.getElementById('quizQuestionBox').classList.add('hidden');
+            document.getElementById('quizExplanation').classList.add('hidden');
+            document.getElementById('quizResultScreen').classList.remove('hidden');
+            document.getElementById('finalScoreDisplay').innerText = quizScore;
+
+            let predikat = "Cukup";
+            if (quizScore >= 80) predikat = "Sangat Baik ⭐⭐⭐";
+            else if (quizScore >= 60) predikat = "Baik ⭐⭐";
+
+            document.getElementById('predikatDisplay').innerText = "Predikat: " + predikat;
+            confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
+            addStars(quizScore);
+        }
+
+        function restartQuiz() {
+            currentQuizIdx = 0;
+            quizScore = 0;
+            document.getElementById('quizScoreText').innerText = "0";
+            document.getElementById('quizQuestionBox').classList.remove('hidden');
+            document.getElementById('quizResultScreen').classList.add('hidden');
+            renderQuizQuestion();
+        }
+
+        // DIGITAL CARD BUILDER LOGIC
+        function renderDigitalCard() {
+            const name = document.getElementById('cardNameInput').value.trim() || studentName;
+            const traits = document.getElementById('cardTraitsInput').value.trim() || "1. Punya senyum ramah\n2. Suka menyanyi\n3. Pemberani";
+            const verse = document.getElementById('cardVerseSelect').value;
+            const promise = document.getElementById('cardPromiseInput').value.trim() || "Saya berjanji tidak akan mengejek teman dan selalu berbagi.";
+            const theme = document.getElementById('cardThemeSelect').value;
+
+            document.getElementById('previewCardName').innerText = name;
+            document.getElementById('previewCardTraits').innerText = traits;
+            document.getElementById('previewCardPromise').innerText = `"${promise}"`;
+            document.getElementById('previewCardVerseRef').innerText = "- " + verse;
+
+            if (verse.includes("139:14")) {
+                document.getElementById('previewCardVerse').innerText = '"Aku bersyukur kepada-Mu oleh karena kejadianku dahsyat dan ajaib!"';
+            } else if (verse.includes("1:27")) {
+                document.getElementById('previewCardVerse').innerText = '"Allah menciptakan manusia menurut gambar dan rupa-Nya."';
+            } else {
+                document.getElementById('previewCardVerse').innerText = '"Kasihilah seorang akan yang lain, seperti Aku telah mengasihi kamu."';
+            }
+
+            // Theme colors switcher
+            const cardBox = document.getElementById('digitalCardPreview');
+            cardBox.className = "w-full max-w-md border-8 rounded-3xl p-6 shadow-2xl space-y-4 relative overflow-hidden transition-all ";
+
+            if (theme === 'gold') {
+                cardBox.classList.add('bg-gradient-to-br', 'from-yellow-100', 'via-amber-50', 'to-orange-100', 'border-yellow-400', 'text-slate-800');
+            } else if (theme === 'sky') {
+                cardBox.classList.add('bg-gradient-to-br', 'from-sky-100', 'via-blue-50', 'to-indigo-100', 'border-blue-400', 'text-slate-800');
+            } else if (theme === 'pink') {
+                cardBox.classList.add('bg-gradient-to-br', 'from-pink-100', 'via-rose-50', 'to-red-100', 'border-pink-400', 'text-slate-800');
+            } else if (theme === 'garden') {
+                cardBox.classList.add('bg-gradient-to-br', 'from-emerald-100', 'via-green-50', 'to-teal-100', 'border-emerald-400', 'text-slate-800');
+            }
+        }
+
+        function printCard() {
+            playSound('star');
+            window.print();
+        }
+
+        // Initialize App on Load
+        window.onload = function() {
+            renderCaseScenario();
+            renderQuizQuestion();
+            renderDigitalCard();
+        };
+    </script>
+</body>
+</html>
